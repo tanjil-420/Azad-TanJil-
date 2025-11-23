@@ -6,7 +6,7 @@ module.exports = {
   config: {
     name: "spygc",
     version: "1.0",
-    author: "Kshitiz",
+    author: "KshitiZ",
     countDown: 5,
     role: 2,
     shortDescription: "Spy the group chats that bot is in.",
