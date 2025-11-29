@@ -3,7 +3,7 @@ module.exports = {
     name: "iftar",
     aliases: ["ramadan"],
     version: "1.0",
-    author: "Dipto",
+    author: "DiPto",
     description: "Get Iftar and Sehri time",
     category: "Islamic",
     commandCategory: "Islamic",
