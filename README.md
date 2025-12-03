@@ -242,14 +242,14 @@ The bot currently supports **2 languages**:
 
 <div align="center">
 
-**Created by 💋 Azad**
+## Created by NTKhang update by Azadx69x
 
 🖼️ owner!
 
 <p align="center">
   <img src="https://files.catbox.moe/y4cfd5.jpg" width="500px;" alt="Azadx69x"/>
         <br/>
-        <sub><b>Azad💥</b></sub>
+        <sub><b>Azadx69x</b></sub>
 
         
    <p align="center">
