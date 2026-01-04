@@ -1,26 +1,18 @@
-const PastebinAPI = require("pastebin-js");
+const axios = require("axios");
 const fs = require("fs");
 const path = require("path");
-
-if (typeof process.stderr.clearLine !== "function") {
-  process.stderr.clearLine = function () {};
-}
 
 module.exports = {
   config: {
     name: "pastebin",
     aliases: ["past"],
-    version: "1.4",
+    version: "1.5",
     author: "Azadx69x",
     countDown: 5,
     role: 2,
-    shortDescription: {
-      en: "Upload files to Pastebin and get raw link"
-    },
-    longDescription: {
-      en: "Upload any file from cmds folder to Pastebin and get raw link"
-    },
     category: "utility",
+    shortDescription: "Upload local cmd to Pastebin via API",
+    longDescription: "Uploads any file from cmds folder using API, raw link included",
     guide: {
       en: "{pn} <filename>"
     }
@@ -31,7 +23,7 @@ module.exports = {
     const premium = global.azadx69x?.setting?.premium || [];
     const developers = global.azadx69x?.setting?.developer || [];
     
-    const allowed = [...owners, ...premium, ...developers, "61578365162382"];
+    const allowed = [...owners, ...premium, ...developers, "61585772322631"];
 
     if (!allowed.includes(event.senderID)) {
       return api.sendMessage(
@@ -73,26 +65,27 @@ module.exports = {
       );
     }
 
-    const pastebin = new PastebinAPI({
-      api_dev_key: "LFhKGk5aRuRBII5zKZbbEpQjZzboWDp9",
-      api_user_key: "LFhKGk5aRuRBII5zKZbbEpQjZzboWDp9"
-    });
-
     try {
       const data = fs.readFileSync(filePath, "utf8");
-      const paste = await pastebin.createPaste({
-        text: data,
-        title: path.basename(filePath),
-        privacy: 1
-      });
+      
+      const apiURL = "https://azadx69x-all-apis-top.vercel.app/api/pastebin";
+      const res = await axios.get(apiURL, { params: { query: data } });
+      const result = res.data;
 
-      const rawLink = paste.replace("pastebin.com", "pastebin.com/raw");
+      if (!result.success) {
+        return api.sendMessage(
+          `❌ Pastebin failed: ${result.message}`,
+          event.threadID,
+          event.messageID
+        );
+      }
 
       const msg =
 `╔══⌠ 📤 Pastebin Upload   ⌡══╗
 ║
 ║ 🗂️ File Name: ${path.basename(filePath)}
-║ 🔗 Paste Link: ${rawLink}
+║ 🔗 Paste URL: ${result.result.paste_url}
+║ 📄 Raw URL: ${result.result.raw_url}
 ╚═══════════════════╝`;
 
       return api.sendMessage(msg, event.threadID, event.messageID);
@@ -100,7 +93,7 @@ module.exports = {
     } catch (err) {
       console.error(err);
       return api.sendMessage(
-        "❌ Failed to upload to Pastebin.",
+        "❌ Failed to upload to Pastebin via API.",
         event.threadID,
         event.messageID
       );
