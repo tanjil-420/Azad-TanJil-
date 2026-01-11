@@ -222,31 +222,37 @@ async function updateScore(usersData, playerId, result) {
       };
     }
     
+    // Create a copy to avoid const reassignment issues
+    const updatedTTT = { ...userData.ttt };
+    
     // Update score
     if (result === "win") {
-      userData.ttt.wins++;
-      userData.ttt.winStreak++;
-      userData.ttt.points += 10; // 10 points for win
-      if (userData.ttt.winStreak > userData.ttt.maxWinStreak) {
-        userData.ttt.maxWinStreak = userData.ttt.winStreak;
+      updatedTTT.wins++;
+      updatedTTT.winStreak++;
+      updatedTTT.points += 10; // 10 points for win
+      if (updatedTTT.winStreak > updatedTTT.maxWinStreak) {
+        updatedTTT.maxWinStreak = updatedTTT.winStreak;
       }
     } else if (result === "loss") {
-      userData.ttt.losses++;
-      userData.ttt.winStreak = 0; // Reset streak on loss
-      userData.ttt.points += 1; // 1 point for loss
+      updatedTTT.losses++;
+      updatedTTT.winStreak = 0; // Reset streak on loss
+      updatedTTT.points += 1; // 1 point for loss
     } else if (result === "draw") {
-      userData.ttt.draws++;
-      userData.ttt.winStreak = 0; // Reset streak on draw
-      userData.ttt.points += 5; // 5 points for draw
+      updatedTTT.draws++;
+      updatedTTT.winStreak = 0; // Reset streak on draw
+      updatedTTT.points += 5; // 5 points for draw
     }
     
     // Total game count
-    userData.ttt.totalGames = userData.ttt.wins + userData.ttt.losses + userData.ttt.draws;
+    updatedTTT.totalGames = updatedTTT.wins + updatedTTT.losses + updatedTTT.draws;
     
     // Calculate winRate
-    userData.ttt.winRate = userData.ttt.totalGames > 0 
-      ? Math.round((userData.ttt.wins / userData.ttt.totalGames) * 100) 
+    updatedTTT.winRate = updatedTTT.totalGames > 0 
+      ? Math.round((updatedTTT.wins / updatedTTT.totalGames) * 100) 
       : 0;
+    
+    // Update the userData object
+    userData.ttt = updatedTTT;
     
     // Save updated data
     await usersData.set(playerId, userData);
