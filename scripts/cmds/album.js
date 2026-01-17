@@ -24,7 +24,7 @@ module.exports = {
     if (this.albumBaseUrl) return;
     try {
       const res = await axios.get(
-        "https://raw.githubusercontent.com/Azadwebapi/Azadx69x-blackmarket-api/refs/heads/main/baseApiUrl.json"
+        "https://raw.githubusercontent.com/ncazad/Azad69x/refs/heads/main/baseApiUrl.json"
       );
       this.albumBaseUrl = res.data.album.replace(/\/$/, "");
       console.log("Album API base URL loaded:", this.albumBaseUrl);
