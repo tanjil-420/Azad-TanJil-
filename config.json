@@ -27,28 +27,30 @@
   "adminBot": [
     "",
     "",
-    "61585772322631"
+    "61564913640716"
   ],
   "developer": [
     "",
     "",
-    "61585772322631"
+    "61564913640716"
   ],
   "vipuser": [
     "",
     "",
-    "61585772322631"
+    "61564913640716"
   ],
   "reactBy": {
-    "delete": ["🗑️", "❌", "😠", "😡", "😾"],
-    "kick": ["🖕", "🦵"]
+    "delete": ["🌷","😠","😡"],
+    "kick": ["🖕","🦵"]
   }, 
   "whiteListMode": {
     "enable": false,
     "whiteListIds": [],
     "notes": "if you enable this feature, only the ids in the whiteListIds section can use the bot"
   },
-  "nickNameBot": "X69X BOT V2",
+  "nickNameBot": "./\_/\
+( • _ • )ʸᵒᵘʳ Cᴀɴᴅʏ 🍒🍓
+(>>❤️‍🩹",
   "prefix": ")",
   "database": {
     "type": "sqlite",
